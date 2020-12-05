@@ -25,6 +25,10 @@ dependencies:
   - parsec
   - either-unwrap
   - interpolate
+  - split
+  - valor
+  - transformers
+  - regex-tdfa
 
 library:
   source-dirs: src

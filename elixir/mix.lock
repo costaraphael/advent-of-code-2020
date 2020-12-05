@@ -1,0 +1,3 @@
+%{
+  "ex_validator": {:hex, :ex_validator, "0.1.1", "fa3b4e9f10b2bd268a314ccf6837467a345f20aa0882d254231fb20db9f5001c", [:mix], [], "hexpm", "f38c9b86c7f497c8317b394b6c262a5823e296f50175807414252ac33e0eefbb"},
+}

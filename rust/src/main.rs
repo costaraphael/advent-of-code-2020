@@ -10,4 +10,6 @@ fn main() {
     aoc::day2::run_part_2();
     aoc::day3::run_part_1();
     aoc::day3::run_part_2();
+    aoc::day4::run_part_1();
+    aoc::day4::run_part_2();
 }

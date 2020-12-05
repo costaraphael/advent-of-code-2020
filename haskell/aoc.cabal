@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a032b9de431d8ccce13911ec72bc0d0d205729d4b6fbf5dd9250ca9b2ad42300
+-- hash: a79b06df278ae851679981e21b27c833310cb4dbed787b3e7e04d9bc6e352a80
 
 name:           aoc
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       Day1
       Day2
       Day3
+      Day4
       Util
   other-modules:
       Paths_aoc
@@ -41,6 +42,10 @@ library
     , either-unwrap
     , interpolate
     , parsec
+    , regex-tdfa
+    , split
+    , transformers
+    , valor
   default-language: Haskell2010
 
 executable aoc-exe
@@ -57,6 +62,10 @@ executable aoc-exe
     , either-unwrap
     , interpolate
     , parsec
+    , regex-tdfa
+    , split
+    , transformers
+    , valor
   default-language: Haskell2010
 
 test-suite aoc-test
@@ -74,4 +83,8 @@ test-suite aoc-test
     , either-unwrap
     , interpolate
     , parsec
+    , regex-tdfa
+    , split
+    , transformers
+    , valor
   default-language: Haskell2010

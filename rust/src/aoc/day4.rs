@@ -88,6 +88,7 @@ fn validate_required(passport: &Passport) -> bool {
         && passport.pid.is_some()
 }
 
+#[allow(dead_code)]
 pub fn run_part_1() {
     let passports = read_input();
 
@@ -113,6 +114,7 @@ fn validate_height(height: &String) -> bool {
     return false;
 }
 
+#[allow(dead_code)]
 pub fn run_part_2() {
     let passports = read_input();
 

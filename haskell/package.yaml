@@ -29,6 +29,7 @@ dependencies:
   - valor
   - transformers
   - regex-tdfa
+  - containers
 
 library:
   source-dirs: src

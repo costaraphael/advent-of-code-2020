@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 30f5430e0ed9d1dfc0e98ae92b0dc73a46e4191043ff209b9633c759c1887c1a
+-- hash: 3818d9c15eff3bc64416afda292b5d58ecb2d22632ddf58c929ec16d2e93f792
 
 name:           aoc
 version:        0.1.0.0
@@ -32,6 +32,7 @@ library
       Day3
       Day4
       Day5
+      Day6
       Util
   other-modules:
       Paths_aoc
@@ -39,6 +40,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , containers
     , directory
     , either-unwrap
     , interpolate
@@ -59,6 +61,7 @@ executable aoc-exe
   build-depends:
       aoc
     , base >=4.7 && <5
+    , containers
     , directory
     , either-unwrap
     , interpolate
@@ -80,6 +83,7 @@ test-suite aoc-test
   build-depends:
       aoc
     , base >=4.7 && <5
+    , containers
     , directory
     , either-unwrap
     , interpolate

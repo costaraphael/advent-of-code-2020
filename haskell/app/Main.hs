@@ -6,6 +6,7 @@ import qualified Day3
 import qualified Day4
 import qualified Day5
 import qualified Day6
+import qualified Day7
 
 main :: IO ()
 main = do
@@ -21,4 +22,6 @@ main = do
   _ <- Day5.runPart2
   _ <- Day6.runPart1
   _ <- Day6.runPart2
+  _ <- Day7.runPart1
+  _ <- Day7.runPart2
   pure ()

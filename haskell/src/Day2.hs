@@ -4,7 +4,6 @@ module Day2
   )
 where
 
-import qualified Data.Either.Unwrap
 import qualified Text.Parsec as Parsec
 import Util
 
@@ -17,7 +16,8 @@ data Rule = Rule Int Int deriving (Show)
 
 data PasswordAndRule = PasswordAndRule Password Rule Char deriving (Show)
 
-parser = do
+passwordParser :: Parsec.Parsec String u PasswordAndRule
+passwordParser = do
   min <- Parsec.many1 Parsec.digit
   _ <- Parsec.string "-"
   max <- Parsec.many1 Parsec.digit
@@ -27,18 +27,12 @@ parser = do
   password <- Parsec.many1 Parsec.anyChar
   return $ PasswordAndRule password (Rule (read min) (read max)) char
 
-parsePasswordAndRule :: String -> PasswordAndRule
-parsePasswordAndRule line =
-  line
-    |> Parsec.parse parser ""
-    |> Data.Either.Unwrap.fromRight
-
 readInput :: IO [PasswordAndRule]
 readInput = do
   fileContents <- readFile input
   fileContents
     |> lines
-    |> map parsePasswordAndRule
+    |> map (parse passwordParser)
     |> pure
 
 solvePart1 :: [PasswordAndRule] -> String

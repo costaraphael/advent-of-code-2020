@@ -1,4 +1,7 @@
-module Util (combinations, (|>), partitionBy) where
+module Util (combinations, (|>), partitionBy, parse) where
+
+import qualified Data.Either.Unwrap
+import qualified Text.Parsec as Parsec
 
 (|>) :: a -> (a -> b) -> b
 a |> f = f a
@@ -18,3 +21,9 @@ partitionBy pred (x : xs) = (x : sameGroupElements) : partitionBy pred rest
   where
     (sameGroupElements, rest) = span (\n -> (pred n) == initialValue) xs
     initialValue = pred x
+
+parse :: Parsec.Parsec String () result -> String -> result
+parse parser line =
+  case Parsec.parse parser "" line of
+    Right value -> value
+    Left e -> e |> show |> error

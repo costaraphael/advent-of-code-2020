@@ -7,21 +7,24 @@ import qualified Day4
 import qualified Day5
 import qualified Day6
 import qualified Day7
+import qualified Day8
 
 main :: IO ()
 main = do
-  _ <- Day1.runPart1
-  _ <- Day1.runPart2
-  _ <- Day2.runPart1
-  _ <- Day2.runPart2
-  _ <- Day3.runPart1
-  _ <- Day3.runPart2
-  _ <- Day4.runPart1
-  _ <- Day4.runPart2
-  _ <- Day5.runPart1
-  _ <- Day5.runPart2
-  _ <- Day6.runPart1
-  _ <- Day6.runPart2
-  _ <- Day7.runPart1
-  _ <- Day7.runPart2
+  Day1.runPart1
+  Day1.runPart2
+  Day2.runPart1
+  Day2.runPart2
+  Day3.runPart1
+  Day3.runPart2
+  Day4.runPart1
+  Day4.runPart2
+  Day5.runPart1
+  Day5.runPart2
+  Day6.runPart1
+  Day6.runPart2
+  Day7.runPart1
+  Day7.runPart2
+  Day8.runPart1
+  Day8.runPart2
   pure ()

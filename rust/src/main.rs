@@ -22,4 +22,6 @@ fn main() {
     aoc::day6::run_part_2();
     aoc::day7::run_part_1();
     aoc::day7::run_part_2();
+    aoc::day8::run_part_1();
+    aoc::day8::run_part_2();
 }

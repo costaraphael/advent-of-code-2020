@@ -1,9 +1,9 @@
 module Day7 (runPart1, runPart2) where
 
-import qualified Data.List as List
 import Data.List.Split (splitOn)
 import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
+import Text.Parsec hiding (parse)
 import Util
 
 input :: String
@@ -11,17 +11,18 @@ input = "../inputs/day7.txt"
 
 type BagRules = Map.Map String (Map.Map String Int)
 
-parsePart :: String -> (String, Int)
-parsePart part =
-  let (amount : color) = splitOn " " part
-   in (color |> takeWhile (\w -> w /= "bag" && w /= "bags") |> List.intersperse " " |> concat, read amount)
-
-parseLine :: String -> (String, Map.Map String Int)
-parseLine line =
-  let [mainColor, parts] = splitOn " bags contain " line
-   in if parts == "no other bags"
-        then (mainColor, Map.empty)
-        else (mainColor, parts |> splitOn ", " |> map parsePart |> Map.fromList)
+lineParser :: Parsec String u (String, Map.Map String Int)
+lineParser = do
+  containerColor <- manyTill anyChar (try (string " bags contain "))
+  items <- emptyItemsParser <|> sepBy itemParser (string ", ")
+  return (containerColor, Map.fromList items)
+  where
+    emptyItemsParser = string "no other bags" >> return []
+    itemParser = do
+      amount <- many1 digit
+      string " "
+      color <- manyTill anyChar (try (string " bags") <|> try (string " bag"))
+      return (color, read amount)
 
 readInput :: IO BagRules
 readInput = do
@@ -29,7 +30,7 @@ readInput = do
   fileContents
     |> splitOn ".\n"
     |> filter (/= "")
-    |> map parseLine
+    |> map (parse lineParser)
     |> Map.fromList
     |> pure
 

@@ -1,10 +1,9 @@
 module Util (combinations, (|>), partitionBy, parse) where
 
-import qualified Data.Either.Unwrap
 import qualified Text.Parsec as Parsec
 
 (|>) :: a -> (a -> b) -> b
-a |> f = f a
+(|>) = flip ($)
 
 infixl 9 |>
 

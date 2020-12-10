@@ -1,6 +1,7 @@
 (ns aoc.day8
   (:require [clojure.string :as string]
             [aoc.util :as util]
+            [clojure.java.io :as io]
             [clojure.core.match :refer [match]]))
 
 (def input "./../inputs/day8.txt")
@@ -10,12 +11,12 @@
     [command (util/str->int arg)]))
 
 (defn- read-input []
-  (->>
-   input
-   (slurp)
-   (string/split-lines)
-   (map parse-instruction)
-   (vec)))
+  (with-open [rdr (io/reader input)]
+    (->>
+     rdr
+     line-seq
+     (map parse-instruction)
+     (vec))))
 
 (defn- execute [program]
   (loop [idx 0 acc 0 seen #{}]

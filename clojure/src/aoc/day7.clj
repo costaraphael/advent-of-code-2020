@@ -1,38 +1,30 @@
 (ns aoc.day7
-  (:require [clojure.string :as string]
-            [aoc.util :as util]))
+  (:require [aoc.util :as util]
+            [clojure.java.io :as io]))
 
 (def input "./../inputs/day7.txt")
 
-(defn- parse-part [part]
-  (let [[amount & rest] (string/split part #" ")
-        amount (util/str->int amount)
-        color (->> rest (remove #{"bag" "bags"}) (string/join " "))]
-    [color amount]))
-
 (defn- parse-line [line]
-  (let [[outer_color parts] (string/split line #" bags contain ")]
-    (cond
-      (= parts "no other bags") [outer_color {}]
-      :else [outer_color (->>
-                          (string/split parts #", ")
-                          (map parse-part)
-                          (into {}))])))
+  (let [[[_, _, outer-color] & parts] (re-seq #"(?:^|(\d+) )(\w+ \w+) bags?" line)
+        inner-map (->>
+                   parts
+                   (map (fn [[_ amount color]] [color (util/str->int amount)]))
+                   (into {}))]
+    [outer-color inner-map]))
 
 (defn- read-input []
-  (as->
-   input $
-    (slurp $)
-    (string/split $ #".\n")
-    (map parse-line $)
-    (into {} $)))
+  (with-open [rdr (io/reader input)]
+    (->>
+     rdr
+     line-seq
+     (map parse-line)
+     (into {}))))
 
 (defn- container-bags [color bags-map]
   (->>
    bags-map
    (map (fn [[container-color inner-map]]
-
-          (if (get inner-map color)
+          (if (inner-map color)
             (conj (container-bags container-color bags-map) container-color)
             [])))
    (flatten)))
@@ -47,7 +39,7 @@
 (defn- inner-bags-amount [color bags-map]
   (->>
    color
-   (get bags-map)
+   bags-map
    (map (fn [[inner-color amount]]
           (+ amount (* amount (inner-bags-amount inner-color bags-map)))))
    (apply +)))

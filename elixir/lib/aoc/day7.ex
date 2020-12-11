@@ -33,29 +33,14 @@ defmodule Aoc.Day7 do
 
   defp read_input do
     @input
-    |> File.read!()
-    |> String.split(".\n")
-    |> Enum.reject(&(&1 == ""))
+    |> File.stream!()
     |> Map.new(fn line ->
-      line
-      |> String.split(" bags contain ")
-      |> List.to_tuple()
-      |> case do
-        {outer_color, "no other bags"} ->
-          {outer_color, %{}}
+      line_regex = ~r/(?:^|(\d) )(\w+ \w+) bags?/
 
-        {outer_color, inner_rules} ->
-          inner_map =
-            inner_rules
-            |> String.split(", ")
-            |> Map.new(fn part ->
-              [amount, color] = String.split(part, " ", parts: 2)
+      [[_, _, outer_color] | contents] = Regex.scan(line_regex, String.trim(line))
 
-              {String.replace(color, ~r/ bag$| bags$/, ""), String.to_integer(amount)}
-            end)
-
-          {outer_color, inner_map}
-      end
+      {outer_color,
+       Map.new(contents, fn [_, amount, color] -> {color, String.to_integer(amount)} end)}
     end)
   end
 end
